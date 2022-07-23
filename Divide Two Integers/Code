@@ -1,0 +1,45 @@
+class Solution {
+    public int divide(int dividend, int divisor) {
+        if (divisor == Integer.MIN_VALUE) {
+            return dividend == Integer.MIN_VALUE ? 1 : 0;
+        }
+
+        if (dividend == 0) {
+            return 0;
+        }
+
+        if (dividend == Integer.MIN_VALUE) {
+            if (divisor == 1) {
+                return dividend;
+            } else if (divisor == -1) {
+                return Integer.MAX_VALUE;
+            }
+        } else if (dividend == Integer.MAX_VALUE) {
+            if (divisor == 1) {
+                return dividend;
+            } else if (divisor == -1) {
+                return -dividend;
+            }
+        }
+
+        int ans = 0;
+        boolean sign = true;
+        if (dividend > 0 && divisor > 0) {
+            dividend = -dividend;
+            sign = false;
+        } else if (dividend > 0 && divisor < 0) {
+            dividend = -dividend;
+            divisor = -divisor;
+        } else if (dividend < 0 && divisor < 0) {
+            sign = false;
+            divisor = -divisor;
+        }
+
+        while (dividend + divisor <= 0) {
+            dividend += divisor;
+            ans++;
+        }
+
+        return sign ? -ans : ans;
+    }
+}
